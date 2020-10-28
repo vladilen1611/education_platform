@@ -1,0 +1,49 @@
+{% extends "main.html" %}
+{% block title %}{{ lesson.title }} - {{ lesson.rubric.name }}{% endblock %}
+{% block content %}
+    <div class="container-fluid rnt-3">
+        <div class="row">
+            <div class="col">
+                <h2>{{ lesson.title }}</h2>
+                <br>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item"
+                            src="https://www.youtube.com/{{ lesson.video }}"
+                            allowfullscreen></iframe>
+                </div>
+                <br>
+                <p><b>Описание:</b> {{ lesson.content }}</p>
+                <p><b>Контакты преподавателя: </b>{{ lesson.contacts }}</p>
+                <p class="text-right fоnt-itаliс">Урок добавлен
+                    {{ lesson.created_at }}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% if ais %}
+        <div class="d-flex justify-content-between flex-wrap rnt-5">
+            {% for ai in ais %}
+                <div>
+                    <img class="additional-image" src="{{ ai.image.url }}">
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if comments %}
+        <div class="mt-5">
+            {% for comment in comments %}
+                <div class="my-2 р-2 border">
+                    <h5>{{ comment.author }}</h5>
+                    <p>{{ comment.content }}</p>
+                    <p class="text-right font-italic">
+                        {{ comment.created_at }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <p>
+        <a href="{% url 'profile' %}{{ all }}">
+            Назад
+        </a>
+    </p>
+{% endblock %}

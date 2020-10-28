@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+{% load thumbnail %}
+{% load static %}
+{% load bootstrap4 %}
+{% block title %}Профиль пользователя{% endblock %}
+{% block content %}
+    <h2>Профиль пользователя {{ user.usernarne }}</h2>
+    {% if user.first_name and user.last_name %}
+        <p>Здравствуйте, {{ user.first_name }} {{ user.last_name }}!</p>
+    {% else %}
+        <p>Здравствуйте!</p>
+    {% endif %}
+
+    {% if user.is_teacher %}
+        <p><a href="{% url 'profile_lesson_add' %}">Добавить урок</a></p>
+        {% if lessons %}
+            <h3>Ваши уроки</h3>
+            <ul class="list-unstyled">
+                {% for lesson in lessons %}
+                    <li class="media my-5 р-3 border">
+                        {% url 'profile_lesson_detail' pk=lesson.pk as url %}
+                        <div class="media-body">
+                            <h3><a href="{{ url }}{{ all }}">
+                                {{ lesson.title }}</a></h3>
+                            <div>{{ lesson.content }}</div>
+                            <p class="text-right font-italic">
+                                {{ lesson.created_at }}</p>
+                            {% if user.is_teacher %}
+                                <p class="text-right mt-2">
+                                    <a href="{% url 'profile_lesson_change' pk=lesson.pk %}">Исправить</a>
+                                    <a href="{% url 'profile_lesson_delete' pk=lesson.pk %}">Удалить</a>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    {% else %}
+        <a href="{% url 'quiz_progress' %}">Мои результаты</a>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %}Правка урока - Профиль пользователя{% endblock %}
+
+{% block content %}
+<h2>Правка урока</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form layout='horizontal' %}
+    {% bootstrap_formset formset layout='horizontal' %}
+    {% buttons submit='Сохранить' %}{% endbuttons %}
+</form>
+{% endblock %}

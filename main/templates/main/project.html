@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}{{ project }}{% endblock %}
+
+{% block searchform %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h3 class="mb-1">{{ project.title }}</h3>
+    </div>
+    <p class="mb-1">{{ project.content }}</p>
+    {% for crew in crews %}
+        <div class="card" style="width: 18rem;">
+            <h5 class="card-header">Команда {{ crew.id }}</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ crew.student1 }}</li>
+                <li class="list-group-item">{{ crew.student2 }}</li>
+                <li class="list-group-item">{{ crew.student3 }}</li>
+                <li class="list-group-item">{{ crew.student4 }}</li>
+            </ul>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "main.html" %}
+'rubric': ,'superrubric
+{% load bootstrap4 %}
+{% block title %}{{ superrubric.name }}{% endblock %}
+{% block content %}
+<div class="album py-4 bg-light">
+    <center><h1>{{ superrubric.name  }}</h1></center>
+    <div class="container mt-5">
+        <div class="row">
+        {% for subrub in superrubric.rubric_set.all %}
+                <div class="col-md-4">
+
+                    <div class="card mb-4 box-shadow">
+                      {% url 'detail' rubric_pk=subrub.pk pk=subrub.lesson_set.first.pk as url %}
+                        <img src="/media/python.png" class="card-img-top" >
+                        <div class="card-body">
+                            <p class="card-text">{{ subrub.description}}</p>
+                            <a href="{{ url }}{{ all }}" class="btn btn-primary">Перейти</a>
+                            <small class="text-muted" style="float: right">{{ subrub.lesson_set.first.created_at }}</small>
+                        </div>
+                    </div>
+
+                </div>
+        {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+
