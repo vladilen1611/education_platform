@@ -17,6 +17,7 @@ jobs:
           name: Run django tests
           command: |
             python3 manage.py test
+            python3 manage.py runserver
 
       - store_artifacts:
           path: test-results/
