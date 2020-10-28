@@ -8,11 +8,16 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Run django tests
           command: |
             pip install --upgrade pip
-            pip install -r requirements.txt
+      - run:
+          command: |
+            pip install -r requirements.txt    
+      - run:
+          name: Run django tests
+          command: |
             python3 manage.py test
+
       - store_artifacts:
           path: test-results/
           destination: tr1
