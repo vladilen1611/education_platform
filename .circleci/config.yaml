@@ -7,13 +7,14 @@ jobs:
       - image: circleci/python:3.6.8
     steps:
       - checkout
-      - pip install -r requirements.txt
+      run:
+        - python3 -m venv venv
+          . venv/Scripts/activate.bat
+          pip install -r requirements.txt
       - run:
           name: Run django tests
           command: |
-            python manage.py test
-      - store_test_results:
-          path: test-results
+            python3 manage.py test
       - store_artifacts:
-          path: test-results
+          path: test-results/
           destination: tr1
