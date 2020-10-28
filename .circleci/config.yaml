@@ -10,7 +10,7 @@ jobs:
       - run:
           name: Run django tests
           command: |
-            python -m install --upgrade pip
+            python -m pip install --upgrade pip
             pip install -r requirements.txt
             python3 manage.py test
       - store_artifacts:
