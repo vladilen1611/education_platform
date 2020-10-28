@@ -9,7 +9,10 @@ jobs:
       - checkout
       - run:
           command: |
-            pip install --upgrade pip
+            python -m venv venv
+            cd venv/Scripts
+            activate.bat  
+            pip install --upgrade pip --user
       - run:
           command: |
             pip install -r requirements.txt    
