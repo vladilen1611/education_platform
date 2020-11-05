@@ -20,12 +20,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'hg(ph__wi8h$79zh2p6-7rxbca)8+jzh!*ij^gi2dl%@jyekc$'
+# SECRET_KEY = 'hg(ph__wi8h$79zh2p6-7rxbca)8+jzh!*ij^gi2dl%@jyekc$'
+#
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
+#
+# ALLOWED_HOSTS = []
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = int(os.environ.get("DEBUG", default=0))
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -42,6 +47,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'easy_thumbnails',
     'quiz.apps.QuizConfig',
+    'suit'
 ]
 
 MIDDLEWARE = [
@@ -115,7 +121,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_L10N = True
-
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 USE_TZ = True
 AUTH_USER_MODEL = 'main.AdvUser'
 

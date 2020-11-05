@@ -12,6 +12,7 @@ from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
+from suit.widgets import TextInput, LinkedSelect
 
 from django.views.generic.base import TemplateView
 from django.core.signing import BadSignature
@@ -23,15 +24,27 @@ from django.http.request import HttpRequest
 
 class RegisterUserView(CreateView):
     model = AdvUser
+
     template_name = 'registration/register_user.html'
     form_class = RegisterUserForm
+    success_message = 'Employee successful created'
     success_url = reverse_lazy('main')
 
 class RegisterDoneView(TemplateView):
     template_name = 'registration/register_done.html'
 
+
 class LWMLoginView(LoginView):
+    success_message = "Account was created successfully"
     template_name = 'registration/login.html'
+    class Meta:
+        widgets={
+            'username': LinkedSelect
+            #'username': forms.TextInput(attrs={'class':'input-mini'})
+        }
+
+    #redirect_authenticated_user = 'main'
+
 
 class LWMLogoutView(LoginRequiredMixin, LogoutView):
     template_name = 'registration/logout.html'
@@ -79,7 +92,7 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
             queryset = self.get_queryset()
         return get_object_or_404(queryset, pk=self.user_id)
 
-@login_required
+#@login_required
 def main(request):
     lessons = Lesson.objects.all()
     rubrics = SuperRubric.objects.all()
@@ -199,6 +212,7 @@ def detail(request, rubric_pk, pk):
                                      'Комментарий не добавлен')
         context['form'] = form
     else:
+
         context['form'] = None
 
     return render(request, 'main/detail.html', context)

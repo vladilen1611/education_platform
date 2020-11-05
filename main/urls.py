@@ -12,13 +12,6 @@ urlpatterns = [
 ]
 
 urlpatterns+=[
-    path('accounts/login/', LWMLoginView.as_view(), name='login'),
-    path('accounts/logout/', LWMLogoutView.as_view(), name='logout'),
-    path('accounts/register/', RegisterUserView.as_view(), name='register'),
-    path('accounts/register/done/', RegisterDoneView.as_view(),
-         name='register_done'),
-    path('accounts/password/change/', LWMPasswordChangeView.as_view(),
-         name='password_change'),
     path('accounts/profile/change/', ChangeUserInfoView.as_view(),
          name='profile_change'),
     path('accounts/profile/', profile, name='profile'),
@@ -33,4 +26,12 @@ urlpatterns+=[
          name='profile_lesson_delete'),
     path('accounts/profile/<int:pk>/', profile_lesson_detail,
          name='profile_lesson_detail'),
+    path('accounts/login/', LWMLoginView.as_view(), name='login'),
+    path('accounts/logout/', LWMLogoutView.as_view(), name='logout'),
+    path('accounts/register/', RegisterUserView.as_view(), name='register'),
+    path('accounts/register/done/', RegisterDoneView.as_view(),
+         name='register_done'),
+    path('accounts/password/change/', LWMPasswordChangeView.as_view(),
+         name='password_change'),
+
 ]
